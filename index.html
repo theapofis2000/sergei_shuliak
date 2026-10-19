@@ -1,57 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./normalize.css" rel="stylesheet" />
-    <link href="./ios.css" rel="stylesheet" />
-    <title>Document</title>
-  </head>
-  <body>
-    <header class="header">
-      <img src="./avatar.png" alt="avatar" class="header__avatar" />
-      <div class="header__textContainer">
-        <h1 class="header__title">Сергей Шуляк</h1>
-        <h3 class="header__subtitle">QA Engineer</h3>
-      </div>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сергей Шуляк — Сайт-визитка</title>
+    <!-- Подключаем шрифт Montserrat и иконки FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2b2b2b 100%);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent-color: #3b82f6;
+            --accent-hover: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Шапка с именем */
+        header {
+            width: 100%;
+            padding: 40px 20px 20px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: none;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Главный контейнер */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1400px;
+            min-height: 75vh;
+            margin: 20px auto 40px;
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        /* Левая секция - Информация */
+        .info-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: var(--accent-hover);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+        }
+
+        /* Список фактов */
+        .facts-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .facts-list li {
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        .facts-list li i {
+            color: var(--accent-color);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .age-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 16px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--accent-hover);
+            font-size: 0.95rem;
+        }
+
+        /* Контакты и соцсети */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .contact-btn i {
+            font-size: 1.3rem;
+        }
+
+        .contact-btn.instagram i { color: #e1306c; }
+        .contact-btn.facebook i { color: #1877f2; }
+        .contact-btn.telegram i { color: #29a9ea; }
+        .contact-btn.whatsapp i { color: #25d366; }
+        .contact-btn.email i { color: #ea4335; }
+
+        /* Правая секция - Фото на 3/4 высоты */
+        .photo-section {
+            flex: 1.1;
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--card-border);
+            min-height: 500px;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 84% center;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-section:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Градиентное затемнение снизу фото для естественного перехода */
+        .photo-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            pointer-events: none;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column-reverse;
+                min-height: auto;
+            }
+
+            .photo-section {
+                height: 60vh;
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Имя по центру вверху -->
+    <header>
+        <h1>Сергей Шуляк</h1>
     </header>
-    <main>
-      <section class="links">
-        <h2 class="links__header">Онлайн</h2>
-        <ul class="links__container">
-          <li class="links__link">
-            <p class="links__title">Telegram</p>
-            <a class="linsk__link" href="@TheApofis">@TheApofis</a>
-          </li>
-          <li class="links__link">
-            <p class="links__title">Email</p>
-            <a class="linsk__link" href="TheApofis@yandex.ru"
-              >TheApofis@yandex.ru</a
-            >
-          </li>
-        </ul>
-      </section>
-      <section class="links">
-        <h2 class="links__header">Мои хобби</h2>
-        <ul class="links__container">
-          <li class="links__link">
-            <p class="links__title">Учусь в QA Studio</p>
-            <a href="https://manual.qa.studio" target="_blank" rel="noopener noreferrer">QA.Studio</a>
-          </li>
-          <li class="links__link">
-            <p class="links__title">Смотрю футбол</p>
-            <a href="https://www.youtube.com/results?search_query=Спартак-Москва" target="_blank" rel="noopener noreferrer">YouTube</a>
-          </li>
-          <li class="links__link">
-            <p class="links__title">Люблю кушать бургеры</p>
-          </li>
-        </ul>
-      </section>
-    </main>
-   <footer>
-      <button type = "button" class="button-link" href=""> Я медведь  </button>
-    </footer>
-    <script type="text/javascript" src="js.js"></script>
-  </body>
+
+    <!-- Основной контент -->
+    <div class="container">
+        
+        <!-- Секция слева: Информация и Контакты -->
+        <div class="info-section">
+            
+            <!-- Блок "Обо мне" -->
+            <div class="card">
+                <h2><i class="fa-solid fa-user"></i> Обо мне</h2>
+                <ul class="facts-list">
+                    <li><i class="fa-solid fa-beer-mug-empty"></i> Попробовал все сорта пива</li>
+                    <li><i class="fa-solid fa-camera"></i> Люблю фотоискусство</li>
+                    <li><i class="fa-solid fa-user-astronaut"></i> Увлекаюсь астрономией</li>
+                    <li><i class="fa-solid fa-store"></i> Работал в Окее</li>
+                    <li><i class="fa-solid fa-tv"></i> Понял концовку Остаться в живых (Lost)</li>
+                                        <li>
+                        <svg style="width: 20px; height: 20px; fill: var(--accent-color); flex-shrink: 0;" viewBox="0 0 576 512">
+                            <path d="M309.6 30.7C316.5 12.7 336.1 3.2 354.1 10.1l74.9 29c18 6.9 27.5 26.5 20.6 44.5s-26.5 27.5-44.5 20.6l-29.3-11.4v86.1c0 17.7-14.3 32-32 32s-32-14.3-32-32V144c0-35.3 28.7-64 64-64h17.9L326.6 47.9c-18-6.9-27.5-26.5-20.6-44.5zM128 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm336 96c17.7 0 32 14.3 32 32s-14.3 32-32 32H400v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V384c0-35.3 28.7-64 64-64h56zm-225.8 81.3l-34.9-104.7c-5.8-17.5-24.8-26.9-42.3-21.1s-26.9 24.8-21.1 42.3l41.4 124.3c10.3 30.9 39 52.2 71.9 52.2h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H192c-13.6 0-25.9-8.5-30.6-21.3zM448 96a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+                        </svg>
+                        Умею танцевать бальные танцы
+                    </li>
+                    <li><i class="fa-solid fa-utensils"></i> Люблю готовить</li>
+                </ul>
+                <div class="age-badge">
+                    <i class="fa-solid fa-cake-candles"></i> Возраст: 26 лет
+                </div>
+            </div>
+
+            <!-- Блок контактов -->
+            <div class="card">
+                <h2><i class="fa-solid fa-paper-plane"></i> Связаться со мной</h2>
+                <div class="contacts-grid">
+                    <a href="https://instagram.com/your_username" target="_blank" class="contact-btn instagram">
+                        <i class="fa-brands fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://facebook.com/your_username" target="_blank" class="contact-btn facebook">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://t.me/your_username" target="_blank" class="contact-btn telegram">
+                        <i class="fa-brands fa-telegram"></i> Telegram
+                    </a>
+                    <a href="https://wa.me/79990000000" target="_blank" class="contact-btn whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:your_email@gmail.com" class="contact-btn email">
+                        <i class="fa-solid fa-envelope"></i> Моя Почта
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Секция справа: Фото на 3/4 страницы -->
+        <div class="photo-section">
+            <!-- Замените "photo.jpg" на имя или ссылку на ваш файл фотографии -->
+            <img src="avatar.png" alt="Сергей Шуляк">
+
+        </div>
+
+    </div>
+
+</body>
 </html>
