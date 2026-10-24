@@ -208,6 +208,7 @@
         }
 
         /* Адаптивность для мобильных устройств */
+               /* Адаптивность для мобильных устройств */
         @media (max-width: 992px) {
             .container {
                 flex-direction: column-reverse;
@@ -215,7 +216,9 @@
             }
 
             .photo-section {
-                height: 60vh;
+                min-height: unset;     /* Убираем десктопный min-height */
+                height: auto;          /* Высота подстраивается под пропорции */
+                aspect-ratio: 4 / 5;   /* Красивая вертикальная пропорция фото */
                 width: 100%;
             }
 
@@ -224,11 +227,7 @@
             }
         }
 
-        @media (max-width: 480px) {
-            .contacts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        
  footer {
     text-align: center;
     margin-top: 50px;
