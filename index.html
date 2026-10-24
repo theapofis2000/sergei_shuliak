@@ -229,6 +229,22 @@
                 grid-template-columns: 1fr;
             }
         }
+ footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-bottom: 30px;
+    color: var(--text-muted, rgba(255, 255, 255, 0.5));
+    font-size: 0.85rem;
+}
+
+/* Стили для строки с версией */
+.footer-version {
+    margin-top: 6px;       небольшой отступ от копирайта сверху 
+    font-size: 0.75rem;    /* можно сделать чуть поменьше основного текста */
+    opacity: 0.7;          /* сделать полупрозрачнее для аккуратного вида */
+}
+
+
     </style>
 </head>
 <body>
@@ -262,7 +278,7 @@
                     <li><i class="fa-solid fa-utensils"></i> Люблю готовить</li>
                 </ul>
                 <div class="age-badge">
-                    <i class="fa-solid fa-cake-candles"></i> Возраст: 26 лет
+                    <i class="fa-solid fa-cake-candles"></i> Возраст - 26 лет
                 </div>
             </div>
 
@@ -298,6 +314,10 @@
         </div>
 
     </div>
+<footer>
+    <p>© 2026 Сергей Шуляк. Все права защищены.</p>
+    <p class="footer-version">Версия 2.0.1</p>
+</footer>
 
 </body>
 </html>
