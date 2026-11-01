@@ -6,16 +6,14 @@
     <title>Сергей Шуляк</title>
     <!-- Основной фавикон для Chrome и современных браузеров -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
-    <!-- Критически важно для Safari (иконка для ярлыка на домашнем экране) -->
-    <link rel="apple-touch-icon" href="favicon.png">
 
     <!-- Специальный значок для Safari / Избранного / Экрана «Домой» -->
-<link rel="apple-touch-icon" href="apple_touch_icon.png">
+    <link rel="apple-touch-icon" href="apple_touch_icon.png">
     
     <!-- Подключаем шрифт Montserrat и иконки FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2b2b2b 100%);
@@ -57,7 +55,6 @@
             font-size: 2.8rem;
             font-weight: 700;
             letter-spacing: 2px;
-            text-transform: none;
             background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -130,18 +127,17 @@
             font-size: 1.1rem;
         }
 
-      .age-badge {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 6px 16px;
-    background: rgba(255, 255, 255, 0.05); /* полупрозрачный нейтральный серый фон */
-    border: 1px solid rgba(124, 125, 126, 0.3); /* серая рамка остается как есть */
-    border-radius: 20px;
-    font-weight: 600;
-    color: #9ca3af; /* аккуратный приглушенный серый цвет текста */
-    font-size: 0.95rem;
-}
-
+        .age-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(124, 125, 126, 0.3);
+            border-radius: 20px;
+            font-weight: 600;
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
 
         /* Контакты и соцсети */
         .contacts-grid {
@@ -181,7 +177,7 @@
         .contact-btn.whatsapp i { color: #25d366; }
         .contact-btn.email i { color: #ea4335; }
 
-        /* Правая секция - Фото на 3/4 высоты */
+        /* Правая секция - Фото */
         .photo-section {
             flex: 1.1;
             position: relative;
@@ -205,7 +201,6 @@
             transform: scale(1.02);
         }
 
-        /* Градиентное затемнение снизу фото для естественного перехода */
         .photo-section::after {
             content: '';
             position: absolute;
@@ -217,8 +212,167 @@
             pointer-events: none;
         }
 
-        /* Адаптивность для мобильных устройств */
-               /* Адаптивность для мобильных устройств */
+        /* Контейнер для центрирования кнопки */
+        .center-btn-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        /* Кнопка "Я медведь" */
+        .action-btn {
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Полноэкранный экран с затемнённой страницей и отдельным изображением медведя */
+        .bear-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            overflow: hidden;
+            isolation: isolate;
+            background: rgba(0, 0, 0, 0.76);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+        }
+
+        .bear-modal-bear {
+            position: absolute;
+            z-index: 1;
+            right: -10vw;
+            bottom: 0;
+            height: 100%;
+            width: auto;
+            max-width: none;
+            object-fit: contain;
+            object-position: right bottom;
+            filter: brightness(0.62) saturate(0.82) drop-shadow(0 18px 38px rgba(0, 0, 0, 0.34));
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .bear-modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition-delay: 0s;
+        }
+
+        /* Размер и пропорции карточки масштабируются вместе с окном браузера */
+        .bear-modal-content {
+            position: relative;
+            z-index: 2;
+            width: min(max(280px, 32vw), calc(100vw - 32px));
+            overflow: hidden;
+            text-align: center;
+            background: rgba(24, 24, 27, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: clamp(18px, 1.5vw, 36px);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.54);
+            transform: scale(0.985);
+            transition: transform 0.22s ease;
+        }
+
+        .bear-modal.active .bear-modal-content {
+            transform: scale(1);
+        }
+
+        .bear-modal-body {
+            min-height: clamp(76px, 12.2vh, 160px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 20px;
+            color: #ededf0;
+            font-size: clamp(17px, 1.55vw, 36px);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .bear-modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .bear-modal-close-btn {
+            display: block;
+            width: 100%;
+            min-height: clamp(48px, 7.8vh, 100px);
+            padding: 10px 14px;
+            background: transparent;
+            border: 0;
+            color: #bdbdc1;
+            font-size: clamp(16px, 1.45vw, 34px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .bear-modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #f4f4f5;
+        }
+
+        .bear-modal-close-btn:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.72);
+            outline-offset: -4px;
+        }
+
+        @media (max-width: 600px) {
+            .bear-modal-bear {
+                right: -20vw;
+                height: 74%;
+            }
+
+            .bear-modal-content {
+                width: min(440px, calc(100vw - 32px));
+            }
+
+            .bear-modal-body {
+                min-height: 12vh;
+                font-size: clamp(18px, 5vw, 24px);
+            }
+
+            .bear-modal-close-btn {
+                min-height: 8vh;
+                font-size: clamp(17px, 4.8vw, 22px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .bear-modal,
+            .bear-modal-content,
+            .bear-modal-close-btn {
+                transition: none;
+            }
+        }
+
+        /* Адаптивность для мобильных */
         @media (max-width: 992px) {
             .container {
                 flex-direction: column-reverse;
@@ -226,9 +380,9 @@
             }
 
             .photo-section {
-                min-height: unset;     /* Убираем десктопный min-height */
-                height: auto;          /* Высота подстраивается под пропорции */
-                aspect-ratio: 4 / 5;   /* Красивая вертикальная пропорция фото */
+                min-height: unset;
+                height: auto;
+                aspect-ratio: 4 / 5;
                 width: 100%;
             }
 
@@ -237,125 +391,19 @@
             }
         }
 
-        
- footer {
-    text-align: center;
-    margin-top: 50px;
-    padding-bottom: 30px;
-    color: var(--text-muted, rgba(255, 255, 255, 0.5));
-    font-size: 0.85rem;
-}
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 30px;
+            color: var(--text-muted, rgba(255, 255, 255, 0.5));
+            font-size: 0.85rem;
+        }
 
-/* Стили для строки с версией */
-.footer-version {
-    margin-top: 6px;       небольшой отступ от копирайта сверху 
-    font-size: 0.75rem;    /* можно сделать чуть поменьше основного текста */
-    opacity: 0.7;          /* сделать полупрозрачнее для аккуратного вида */
-}
-
-/* Контейнер для центрирования кнопки */
-.center-btn-container {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-/* Сама кнопка в стиле Glassmorphism */
-.action-btn {
-    display: inline-block;
-    padding: 10px 30px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
-    border-radius: 16px;
-    color: var(--accent-color, #545556);
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.action-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Затемняющий размытый фон за модальным окном */
-.modal-backdrop {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Класс для активации показа окна через JS */
-.modal-backdrop.active {
-    display: flex;
-}
-
-/* Карточка всплывающего окна */
-.modal-card {
-    background: rgba(24, 24, 27, 0.85);
-    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.12));
-    border-radius: 20px;
-    width: 90%;
-    max-width: 360px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    animation: modalFadeIn 0.25s ease-out;
-}
-
-.modal-body {
-    padding: 28px 20px;
-    text-align: center;
-    font-size: 1.1rem;
-    color: var(--text-main, #f0f0f0);
-}
-
-.modal-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.modal-close-btn {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: none;
-    color: var(--accent-color, #3b82f6);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.modal-close-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* Плавная анимация появления */
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.92);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
+        .footer-version {
+            margin-top: 6px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -379,19 +427,15 @@
                     <li><i class="fa-solid fa-camera"></i> Люблю фотоискусство</li>
                     <li><i class="fa-solid fa-user-astronaut"></i> Увлекаюсь астрономией</li>
                     <li><i class="fa-solid fa-store"></i> Работал в Окее</li>
-                    <div class="about-item">
-    <i class="fa-solid fa-tv" style="color: var(--text-muted); font-size: 0.85em; margin-right: 10px;"></i>
-
-    <span>Понял концовку "Остаться в живых"</span>
-</div>
-                       <div class="feature-item">
-    <!-- Заменяем иконку людей на облако -->
-    <i class="fa-solid fa-cloud" style="color: var(--text-muted); margin-right: 10px;"></i>
-
-Разгоняю в лужах облака
-</div>
+                    <li>
+                        <i class="fa-solid fa-tv" style="color: var(--text-muted);"></i>
+                        <span>Понял концовку "Остаться в живых"</span>
                     </li>
-                    <li><i class="fa-solid fa-utensils"></i> Люблю готовить</li>
+                    <li>
+                        <i class="fa-solid fa-cloud" style="color: var(--text-muted);"></i>
+                        <span>Разгоняю в лужах облака</span>
+                    </li>
+                    <li><i class="fa-solid fa-utensils"></i> Люблю кушать бургеры</li>
                 </ul>
                 <div class="age-badge">
                     <i class="fa-solid fa-cake-candles"></i> Возраст - 26 лет
@@ -422,59 +466,76 @@
 
         </div>
 
-        <!-- Секция справа: Фото на 3/4 страницы -->
+        <!-- Секция справа: Фото -->
         <div class="photo-section">
-            <!-- Замените "photo.jpg" на имя или ссылку на ваш файл фотографии -->
             <img src="avatar.png" alt="Сергей Шуляк">
-
         </div>
 
     </div>
+
     <!-- Кнопка "Я медведь" по центру -->
-<div class="center-btn-container">
-    <button id="bearBtn" class="action-btn">Я медведь</button>
-</div>
+    <div class="center-btn-container">
+        <button id="bearBtn" class="action-btn" type="button">Я медведь</button>
+    </div>
 
-<footer>
-    <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-    <p class="footer-version">Версия 2.0.1</p>
-</footer>
-<!-- Всплывающее окно (Modal) -->
-<div id="bearModal" class="modal-backdrop">
-    <div class="modal-card">
-        <div class="modal-body">
-            <p>Ты не медведь</p>
-        </div>
-        <div class="modal-footer">
-            <button id="closeBearModal" class="modal-close-btn">Закрыть</button>
+    <footer>
+        <p>© 2026 Сергей Шуляк. Все права защищены.</p>
+        <p class="footer-version">Версия 2.0.1</p>
+    </footer>
+
+    <!-- Модальное окно с медведем -->
+    <div id="bearModal" class="bear-modal" aria-hidden="true">
+        <img class="bear-modal-bear" src="beer.png" alt="" aria-hidden="true" draggable="false">
+        <div class="bear-modal-content" role="dialog" aria-modal="true" aria-labelledby="bearModalTitle">
+            <div class="bear-modal-body">
+                <p id="bearModalTitle">Ты не медведь</p>
+            </div>
+            <div class="bear-modal-footer">
+                <button id="closeBearModal" class="bear-modal-close-btn" type="button">Закрыть</button>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const bearBtn = document.getElementById('bearBtn');
-        const bearModal = document.getElementById('bearModal');
-        const closeBearModal = document.getElementById('closeBearModal');
 
-        if (bearBtn && bearModal) {
-            bearBtn.addEventListener('click', () => {
+    <!-- Скрипт управления полноэкранным окном -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bearBtn = document.getElementById('bearBtn');
+            const bearModal = document.getElementById('bearModal');
+            const closeBearModal = document.getElementById('closeBearModal');
+
+            if (!bearBtn || !bearModal || !closeBearModal) return;
+
+            let previousBodyOverflow = '';
+
+            const openModal = () => {
+                previousBodyOverflow = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
                 bearModal.classList.add('active');
+                bearModal.setAttribute('aria-hidden', 'false');
+                closeBearModal.focus();
+            };
+
+            const closeModal = () => {
+                bearModal.classList.remove('active');
+                bearModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = previousBodyOverflow;
+                bearBtn.focus();
+            };
+
+            bearBtn.addEventListener('click', openModal);
+            closeBearModal.addEventListener('click', closeModal);
+
+            bearModal.addEventListener('click', (event) => {
+                if (event.target === bearModal) closeModal();
             });
 
-            if (closeBearModal) {
-                closeBearModal.addEventListener('click', () => {
-                    bearModal.classList.remove('active');
-                });
-            }
-
-            bearModal.addEventListener('click', (e) => {
-                if (e.target === bearModal) {
-                    bearModal.classList.remove('active');
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && bearModal.classList.contains('active')) {
+                    closeModal();
                 }
             });
-        }
-    });
-</script>
+        });
+    </script>
 
 </body>
 </html>
