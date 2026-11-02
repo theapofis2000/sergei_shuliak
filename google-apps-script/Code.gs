@@ -25,16 +25,35 @@ function doPost(e) {
   }
 
   try {
-    const email = buildNotification(payload);
+    const email = buildNotification(payload, recipient);
     MailApp.sendEmail(recipient, email.subject, email.body, email.options || {});
-    return jsonResponse({ sent: true });
+
+    let receiptSent = false;
+    if (email.receipt) {
+      try {
+        if (shouldSendContactReceipt(email.receipt.to)) {
+          MailApp.sendEmail(
+            email.receipt.to,
+            email.receipt.subject,
+            email.receipt.body,
+            email.receipt.options || {}
+          );
+          receiptSent = true;
+        }
+      } catch (receiptError) {
+        // The site owner's notification was already sent; a receipt failure should not undo it.
+        console.error('Admin notification sent, but the contact receipt could not be sent:', receiptError);
+      }
+    }
+
+    return jsonResponse({ sent: true, receiptSent: receiptSent });
   } catch (error) {
     console.error('Could not send notification:', error);
     return jsonResponse({ error: 'Could not send notification' });
   }
 }
 
-function buildNotification(payload) {
+function buildNotification(payload, ownerEmail) {
   const record = payload && payload.record;
   if (!record || typeof record !== 'object') {
     throw new Error('Invalid notification record');
@@ -45,7 +64,7 @@ function buildNotification(payload) {
     const email = safeText(record.email, 254);
     const message = safeText(record.message, 5000);
     const createdAt = safeText(record.created_at, 80);
-    if (!name || !email || !message) throw new Error('Incomplete contact message');
+    if (!name || !isValidEmail(email) || !message) throw new Error('Incomplete contact message');
 
     return {
       subject: 'Новое сообщение на сайте',
@@ -63,6 +82,22 @@ function buildNotification(payload) {
         replyTo: email,
         name: 'Уведомления сайта',
         htmlBody: contactMessageHtml(name, email, createdAt, message)
+      },
+      receipt: {
+        to: email,
+        subject: 'Мы получили ваше сообщение — Сергей Шуляк',
+        body: [
+          'Здравствуйте, ' + name + '!',
+          '',
+          'Ваше сообщение успешно доставлено. Я получил его и постараюсь ответить в ближайшее время.',
+          '',
+          'Это автоматическое подтверждение; отдельный ответ придёт позже.'
+        ].join('\n'),
+        options: {
+          name: 'Сергей Шуляк',
+          replyTo: ownerEmail,
+          htmlBody: contactReceiptHtml(name)
+        }
       }
     };
   }
@@ -91,6 +126,43 @@ function buildNotification(payload) {
   }
 
   throw new Error('Unsupported notification event');
+}
+
+function isValidEmail(email) {
+  return typeof email === 'string' && email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function shouldSendContactReceipt(email) {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return false;
+
+  try {
+    const digest = Utilities.computeDigest(
+      Utilities.DigestAlgorithm.SHA_256,
+      email.trim().toLowerCase(),
+      Utilities.Charset.UTF_8
+    );
+    const key = 'contact-receipt-' + Utilities.base64EncodeWebSafe(digest).replace(/=+$/g, '');
+    const cache = CacheService.getScriptCache();
+    if (cache.get(key)) return false;
+
+    cache.put(key, 'sent', 15 * 60);
+    return true;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function contactReceiptHtml(name) {
+  return emailLayout(
+    'СООБЩЕНИЕ ДОСТАВЛЕНО',
+    'Спасибо, ' + name + '!',
+    'Я получил ваше сообщение и постараюсь ответить в ближайшее время.',
+    '<div style="padding:18px 20px;background:#101012;border:1px solid #2c2c30;border-radius:14px">' +
+      '<div style="color:#f0f0f0;font-size:16px;line-height:1.65">Ваше сообщение успешно доставлено.</div>' +
+      '<div style="margin-top:10px;color:#a0a0a8;font-size:13px;line-height:1.6">Это автоматическое подтверждение. Отдельный ответ придёт позже.</div>' +
+    '</div>'
+  );
 }
 
 function contactMessageHtml(name, email, createdAt, message) {
