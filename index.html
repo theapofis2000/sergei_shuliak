@@ -4,6 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сергей Шуляк</title>
+    <script>
+        document.documentElement.classList.add('page-loading');
+
+        window.addEventListener('load', async () => {
+            const imageDecodes = Array.from(document.images, (image) => {
+                if (typeof image.decode !== 'function') return Promise.resolve();
+                return image.decode().catch(() => {});
+            });
+
+            await Promise.all(imageDecodes);
+            if (document.fonts?.ready) await document.fonts.ready;
+            document.documentElement.classList.remove('page-loading');
+            document.documentElement.classList.add('page-loaded');
+        }, { once: true });
+    </script>
+    <style>
+        html.page-loading,
+        html.page-loaded {
+            background: #050505;
+        }
+
+        html.page-loading body > :not(#pageLoader) {
+            visibility: hidden;
+        }
+
+        #pageLoader {
+            display: none;
+        }
+
+        html.page-loading #pageLoader,
+        html.page-loaded #pageLoader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: grid;
+            place-content: center;
+            justify-items: center;
+            gap: 18px;
+            background: #050505;
+            color: #f0f0f0;
+            font: 500 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            transition: opacity 280ms ease, visibility 280ms ease;
+        }
+
+        html.page-loaded #pageLoader {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .page-loader-spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid rgba(255, 255, 255, 0.18);
+            border-top-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: page-loader-spin 0.8s linear infinite;
+        }
+
+        @keyframes page-loader-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page-loader-spinner {
+                animation: none;
+            }
+
+            html.page-loading #pageLoader,
+            html.page-loaded #pageLoader {
+                transition-duration: 0.01ms;
+            }
+        }
+    </style>
+
+    <link rel="preload" as="image" href="avatar.png" fetchpriority="high">
     <!-- Основной фавикон для Chrome и современных браузеров -->
     <link rel="icon" type="image/png" href="favicon.png">
 
@@ -12,7 +88,7 @@
     
     <!-- Подключаем шрифт Montserrat и иконки FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
         :root {
@@ -588,6 +664,10 @@
     </style>
 </head>
 <body>
+    <div id="pageLoader" role="status" aria-live="polite">
+        <span class="page-loader-spinner" aria-hidden="true"></span>
+        <span>Загружаю страницу…</span>
+    </div>
 
     <!-- Имя по центру вверху -->
     <header>
@@ -658,7 +738,7 @@
 
         <!-- Секция справа: Фото -->
         <div class="photo-section">
-            <img src="avatar.png" alt="Сергей Шуляк">
+            <img src="avatar.png" alt="Сергей Шуляк" fetchpriority="high">
         </div>
 
     </div>
@@ -673,7 +753,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.0</p>
+        <p class="footer-version">Версия 2.1.1</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
