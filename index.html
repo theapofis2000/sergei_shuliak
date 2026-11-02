@@ -600,8 +600,15 @@
 
         @media (max-width: 600px) {
             .bear-modal-bear {
-                right: -20vw;
-                height: 74%;
+                right: 50%;
+                bottom: 4vh;
+                width: auto;
+                height: auto;
+                max-width: calc(100vw - 24px);
+                max-height: 100vh;
+                max-height: 100dvh;
+                transform: translateX(50%);
+                object-position: center bottom;
             }
 
             .bear-modal-content {
@@ -753,7 +760,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.5</p>
+        <p class="footer-version">Версия 2.1.6</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
