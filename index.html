@@ -502,6 +502,86 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
+        .bear-universe {
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            max-width: 1400px;
+            min-height: 260px;
+            margin: 0 auto 20px;
+            padding: clamp(28px, 4vw, 56px);
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 78% 42%, rgba(181, 181, 184, 0.13), transparent 28%),
+                linear-gradient(115deg, rgba(24, 24, 27, 0.98), rgba(42, 42, 46, 0.95) 58%, rgba(24, 24, 27, 0.98));
+            box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+        }
+
+        .bear-universe-content {
+            position: relative;
+            z-index: 2;
+            max-width: 58%;
+        }
+
+        .bear-universe-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 12px;
+            color: #c9c9ce;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .bear-universe h2 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: clamp(1.6rem, 3vw, 2.45rem);
+            letter-spacing: 0.01em;
+        }
+
+        .bear-universe-copy {
+            max-width: 36ch;
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+            line-height: 1.6;
+        }
+
+        .bear-universe-bear {
+            position: absolute;
+            z-index: 1;
+            right: clamp(12px, 4vw, 56px);
+            bottom: 0;
+            height: 100%;
+            max-width: 46%;
+            width: auto;
+            object-fit: contain;
+            object-position: center bottom;
+            filter: brightness(0.76) saturate(0.86) drop-shadow(0 16px 28px rgba(0, 0, 0, 0.4));
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .bear-universe-btn {
+            position: relative;
+            z-index: 2;
+            min-width: 220px;
+            margin-top: 22px;
+            padding: 13px 28px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .bear-universe-btn i {
+            color: #dedee2;
+        }
+
         /* Полноэкранный экран с затемнённой страницей и отдельным изображением медведя */
         .bear-modal {
             position: fixed;
@@ -603,6 +683,39 @@
         }
 
         @media (max-width: 600px) {
+            .bear-universe {
+                align-items: flex-start;
+                min-height: 390px;
+                padding: 26px 20px;
+            }
+
+            .bear-universe-content {
+                max-width: 100%;
+            }
+
+            .bear-universe h2 {
+                max-width: 15ch;
+                font-size: clamp(1.55rem, 7vw, 2rem);
+            }
+
+            .bear-universe-copy {
+                max-width: 28ch;
+            }
+
+            .bear-universe-bear {
+                right: 50%;
+                bottom: 0;
+                height: 52%;
+                max-height: 205px;
+                max-width: calc(100% - 24px);
+                transform: translateX(50%);
+                opacity: 0.72;
+            }
+
+            .bear-universe-btn {
+                margin-top: 18px;
+            }
+
             .bear-modal-bear {
                 right: 50%;
                 bottom: 4vh;
@@ -754,17 +867,29 @@
 
     </div>
 
-    <!-- Кнопки действий по центру -->
+    <!-- Отдельный раздел «Вселенная медведей» -->
+    <section class="bear-universe" aria-labelledby="bearUniverseTitle">
+        <div class="bear-universe-content">
+            <span class="bear-universe-kicker"><i class="fa-solid fa-paw" aria-hidden="true"></i> Медвежий портал</span>
+            <h2 id="bearUniverseTitle">Вселенная медведей</h2>
+            <p class="bear-universe-copy">Проверь, есть ли в тебе медведь. Всего один клик — и узнаешь.</p>
+            <button id="bearBtn" class="action-btn bear-universe-btn" type="button">
+                <i class="fa-solid fa-paw" aria-hidden="true"></i> Я медведь
+            </button>
+        </div>
+        <img class="bear-universe-bear" src="beer.png" alt="" aria-hidden="true" draggable="false">
+    </section>
+
+    <!-- Кнопка обратной связи -->
     <div class="center-btn-container">
         <button id="feedbackBtn" class="action-btn" type="button">
             <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i> Написать мне
         </button>
-        <button id="bearBtn" class="action-btn" type="button">Я медведь</button>
     </div>
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.8</p>
+        <p class="footer-version">Версия 2.1.9</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
