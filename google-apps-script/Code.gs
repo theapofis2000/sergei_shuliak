@@ -154,15 +154,24 @@ function shouldSendContactReceipt(email) {
 }
 
 function contactReceiptHtml(name) {
-  return emailLayout(
-    'СООБЩЕНИЕ ДОСТАВЛЕНО',
-    'Спасибо, ' + name + '!',
-    'Я получил ваше сообщение и постараюсь ответить в ближайшее время.',
-    '<div style="padding:18px 20px;background:#101012;border:1px solid #2c2c30;border-radius:14px">' +
-      '<div style="color:#f0f0f0;font-size:16px;line-height:1.65">Ваше сообщение успешно доставлено.</div>' +
-      '<div style="margin-top:10px;color:#a0a0a8;font-size:13px;line-height:1.6">Это автоматическое подтверждение. Отдельный ответ придёт позже.</div>' +
-    '</div>'
-  );
+  const safeName = escapeHtml(name);
+
+  return '<!doctype html><html lang="ru"><head><meta charset="utf-8">' +
+    '<meta name="color-scheme" content="dark"><meta name="supported-color-schemes" content="dark">' +
+    '<style>:root{color-scheme:dark;supported-color-schemes:dark}</style></head>' +
+    '<body bgcolor="#09090b" style="margin:0;padding:28px 12px;background-color:#09090b;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#09090b" style="border-collapse:collapse;background-color:#09090b"><tr><td align="center">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#18181b" style="width:100%;max-width:560px;border:1px solid #303034;border-radius:18px;background-color:#18181b">' +
+    '<tr><td style="padding:24px 28px;border-bottom:1px solid #303034;color:#b5b5b8;font-size:12px;font-weight:700;letter-spacing:1.3px">СЕРГЕЙ ШУЛЯК&nbsp; · &nbsp;ЛИЧНЫЙ САЙТ</td></tr>' +
+    '<tr><td style="padding:30px 28px 34px">' +
+    '<h1 style="margin:22px 0 0;color:#f4f4f5;font-size:27px;font-weight:700;line-height:1.25">Спасибо за сообщение, ' + safeName + '!</h1>' +
+    '<p style="margin:16px 0 0;color:#d0d0d4;font-size:16px;line-height:1.7">Ваше сообщение успешно доставлено. Я получил его и постараюсь ответить в ближайшее время.</p>' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#101012" style="margin-top:24px;border-collapse:collapse;background-color:#101012;border:1px solid #2c2c30;border-radius:12px"><tr>' +
+    '<td style="padding:16px 18px;color:#a0a0a8;font-size:13px;line-height:1.6">Это автоматическое подтверждение. Если понадобится, просто ответьте на это письмо — оно придёт Сергею.</td>' +
+    '</tr></table>' +
+    '</td></tr>' +
+    '<tr><td style="padding:16px 28px;border-top:1px solid #303034;color:#77777e;font-size:12px;line-height:1.5">Письмо отправлено после отправки формы обратной связи.</td></tr>' +
+    '</table></td></tr></table></body></html>';
 }
 
 function contactMessageHtml(name, email, createdAt, message) {
