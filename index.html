@@ -690,36 +690,55 @@
 
         @media (max-width: 600px) {
             .bear-universe {
-                align-items: flex-start;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas:
+                    "kicker"
+                    "title"
+                    "copy"
+                    "bear"
+                    "button";
                 min-height: 390px;
                 padding: 26px 20px;
             }
 
             .bear-universe-content {
-                max-width: 100%;
+                display: contents;
+            }
+
+            .bear-universe-kicker {
+                grid-area: kicker;
+                justify-self: start;
             }
 
             .bear-universe h2 {
+                grid-area: title;
                 max-width: 15ch;
                 font-size: clamp(1.55rem, 7vw, 2rem);
             }
 
             .bear-universe-copy {
+                grid-area: copy;
                 max-width: 28ch;
             }
 
             .bear-universe-bear {
-                right: 50%;
-                bottom: -7%;
-                height: 44%;
-                max-height: 180px;
-                max-width: calc(100% - 24px);
-                transform: translateX(50%);
+                grid-area: bear;
+                position: relative;
+                justify-self: center;
+                width: 100%;
+                height: auto;
+                max-width: 340px;
+                max-height: 190px;
+                margin-top: 12px;
+                object-position: center;
                 opacity: 0.9;
             }
 
             .bear-universe-btn {
-                margin-top: 18px;
+                grid-area: button;
+                justify-self: center;
+                margin-top: 4px;
             }
 
             .bear-modal-bear {
@@ -895,7 +914,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.11</p>
+        <p class="footer-version">Версия 2.1.12</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
