@@ -631,11 +631,11 @@
         .bear-modal-bear {
             position: absolute;
             z-index: 2;
-            right: -10vw;
+            right: 0;
             bottom: 0;
-            height: 100%;
-            width: auto;
-            max-width: none;
+            width: min(68vw, 1100px);
+            height: auto;
+            max-height: 88dvh;
             object-fit: contain;
             object-position: right bottom;
             filter: brightness(0.62) saturate(0.82) drop-shadow(0 18px 38px rgba(0, 0, 0, 0.34));
@@ -646,7 +646,7 @@
         .bear-modal-code {
             position: absolute;
             z-index: 1;
-            top: 50%;
+            top: 34%;
             left: clamp(24px, 7vw, 120px);
             display: grid;
             justify-items: start;
@@ -674,7 +674,7 @@
 
         .bear-modal-code-number {
             color: rgba(232, 232, 236, 0.17);
-            font-size: clamp(150px, 22vw, 360px);
+            font-size: clamp(120px, 16vw, 260px);
             font-weight: 800;
             letter-spacing: -0.1em;
             line-height: 0.78;
@@ -697,12 +697,12 @@
         .bear-modal-content {
             position: relative;
             z-index: 3;
-            width: min(520px, max(260px, 25vw), calc(100vw - 40px));
+            width: min(260px, max(210px, 14vw), calc(100vw - 32px));
             overflow: hidden;
             text-align: center;
             background: rgba(24, 24, 27, 0.97);
             border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: clamp(18px, 1.5vw, 36px);
+            border-radius: clamp(16px, 1.1vw, 24px);
             box-shadow: 0 14px 38px rgba(0, 0, 0, 0.54);
             transform: scale(0.985);
             transition: transform 0.22s ease;
@@ -713,13 +713,13 @@
         }
 
         .bear-modal-body {
-            min-height: clamp(66px, 8.5vh, 112px);
+            min-height: clamp(58px, 6vh, 82px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 20px;
+            padding: 12px 16px;
             color: #ededf0;
-            font-size: clamp(17px, 1.35vw, 28px);
+            font-size: clamp(16px, 1vw, 20px);
             font-weight: 400;
             line-height: 1.4;
         }
@@ -735,12 +735,12 @@
         .bear-modal-close-btn {
             display: block;
             width: 100%;
-            min-height: clamp(42px, 5.2vh, 64px);
-            padding: 8px 14px;
+            min-height: clamp(38px, 3.5vh, 48px);
+            padding: 6px 12px;
             background: transparent;
             border: 0;
             color: #bdbdc1;
-            font-size: clamp(16px, 1.2vw, 21px);
+            font-size: clamp(15px, 1vw, 18px);
             font-weight: 600;
             cursor: pointer;
             transition: background 0.18s ease, color 0.18s ease;
@@ -758,32 +758,34 @@
 
         @media (min-width: 601px) and (max-width: 1400px) {
             .bear-modal-code {
-                top: 30%;
-                left: 5vw;
-                transform: none;
+                top: 27%;
+                left: 50%;
+                justify-items: center;
+                transform: translateX(-50%);
             }
 
             .bear-modal-code-number {
-                font-size: clamp(160px, 27vw, 300px);
+                font-size: clamp(128px, 22vw, 220px);
             }
 
             .bear-modal-bear {
                 right: 50%;
                 bottom: 0;
-                height: min(78vh, 720px);
-                height: min(78dvh, 720px);
-                max-width: calc(100vw - 24px);
+                width: min(105vw, 1050px);
+                height: auto;
+                max-height: 78dvh;
+                max-width: none;
                 transform: translateX(50%);
             }
 
             .bear-modal-body {
-                min-height: 76px;
-                font-size: clamp(18px, 2.2vw, 22px);
+                min-height: 62px;
+                font-size: clamp(16px, 1.7vw, 18px);
             }
 
             .bear-modal-close-btn {
-                min-height: 48px;
-                font-size: clamp(16px, 1.8vw, 19px);
+                min-height: 42px;
+                font-size: clamp(15px, 1.5vw, 17px);
             }
         }
 
@@ -844,7 +846,7 @@
 
             .bear-modal-bear {
                 right: 50%;
-                bottom: 4vh;
+                bottom: 0;
                 width: auto;
                 height: auto;
                 max-width: calc(100vw - 24px);
@@ -862,21 +864,21 @@
             }
 
             .bear-modal-code-number {
-                font-size: clamp(150px, 43vw, 250px);
+                font-size: clamp(120px, 36vw, 190px);
             }
 
             .bear-modal-content {
-                width: min(280px, calc(100vw - 40px));
+                width: min(220px, calc(100vw - 32px));
             }
 
             .bear-modal-body {
-                min-height: 70px;
-                font-size: clamp(17px, 5vw, 21px);
+                min-height: 58px;
+                font-size: 16px;
             }
 
             .bear-modal-close-btn {
-                min-height: 46px;
-                font-size: clamp(16px, 4.8vw, 19px);
+                min-height: 40px;
+                font-size: 15px;
             }
         }
 
