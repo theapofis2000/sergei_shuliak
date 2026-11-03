@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#282828">
+    <meta name="theme-color" content="#000000">
     <title>Сергей Шуляк</title>
     <script>
         document.documentElement.classList.add('page-loading');
@@ -26,7 +26,13 @@
         }
 
         html.page-loaded {
-            background: #282828;
+            background: linear-gradient(
+                to bottom,
+                #000000 0,
+                #000000 140px,
+                #282828 280px,
+                #282828 100%
+            );
         }
 
         html.page-loading body > :not(#pageLoader) {
@@ -705,8 +711,8 @@
             .bear-universe-bear {
                 right: 50%;
                 bottom: 0;
-                height: 52%;
-                max-height: 205px;
+                height: 30%;
+                max-height: 128px;
                 max-width: calc(100% - 24px);
                 transform: translateX(50%);
                 opacity: 0.72;
@@ -889,7 +895,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.9</p>
+        <p class="footer-version">Версия 2.1.10</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
