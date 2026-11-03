@@ -630,7 +630,7 @@
 
         .bear-modal-bear {
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             right: -10vw;
             bottom: 0;
             height: 100%;
@@ -643,6 +643,49 @@
             user-select: none;
         }
 
+        .bear-modal-code {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: clamp(24px, 7vw, 120px);
+            display: grid;
+            justify-items: start;
+            gap: 10px;
+            transform: translateY(-50%);
+            color: rgba(232, 232, 236, 0.72);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .bear-modal-code-label,
+        .bear-modal-code-caption {
+            color: rgba(232, 232, 236, 0.64);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: clamp(10px, 0.8vw, 13px);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .bear-modal-code-label {
+            padding-left: 10px;
+            border-left: 2px solid rgba(232, 232, 236, 0.5);
+        }
+
+        .bear-modal-code-number {
+            color: rgba(232, 232, 236, 0.17);
+            font-size: clamp(150px, 22vw, 360px);
+            font-weight: 800;
+            letter-spacing: -0.1em;
+            line-height: 0.78;
+            -webkit-text-stroke: 1px rgba(232, 232, 236, 0.15);
+            text-shadow: 0 0 42px rgba(232, 232, 236, 0.08);
+        }
+
+        .bear-modal-code-caption {
+            margin-top: 2px;
+        }
+
         .bear-modal.active {
             opacity: 1;
             visibility: visible;
@@ -653,8 +696,8 @@
         /* Размер и пропорции карточки масштабируются вместе с окном браузера */
         .bear-modal-content {
             position: relative;
-            z-index: 2;
-            width: min(max(280px, 32vw), calc(100vw - 32px));
+            z-index: 3;
+            width: min(520px, max(260px, 25vw), calc(100vw - 40px));
             overflow: hidden;
             text-align: center;
             background: rgba(24, 24, 27, 0.97);
@@ -670,15 +713,19 @@
         }
 
         .bear-modal-body {
-            min-height: clamp(76px, 12.2vh, 160px);
+            min-height: clamp(66px, 8.5vh, 112px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 16px 20px;
             color: #ededf0;
-            font-size: clamp(17px, 1.55vw, 36px);
+            font-size: clamp(17px, 1.35vw, 28px);
             font-weight: 400;
             line-height: 1.4;
+        }
+
+        .bear-modal-body p {
+            margin: 0;
         }
 
         .bear-modal-footer {
@@ -688,12 +735,12 @@
         .bear-modal-close-btn {
             display: block;
             width: 100%;
-            min-height: clamp(48px, 7.8vh, 100px);
-            padding: 10px 14px;
+            min-height: clamp(42px, 5.2vh, 64px);
+            padding: 8px 14px;
             background: transparent;
             border: 0;
             color: #bdbdc1;
-            font-size: clamp(16px, 1.45vw, 34px);
+            font-size: clamp(16px, 1.2vw, 21px);
             font-weight: 600;
             cursor: pointer;
             transition: background 0.18s ease, color 0.18s ease;
@@ -707,6 +754,37 @@
         .bear-modal-close-btn:focus-visible {
             outline: 2px solid rgba(255, 255, 255, 0.72);
             outline-offset: -4px;
+        }
+
+        @media (min-width: 601px) and (max-width: 1400px) {
+            .bear-modal-code {
+                top: 30%;
+                left: 5vw;
+                transform: none;
+            }
+
+            .bear-modal-code-number {
+                font-size: clamp(160px, 27vw, 300px);
+            }
+
+            .bear-modal-bear {
+                right: 50%;
+                bottom: 0;
+                height: min(78vh, 720px);
+                height: min(78dvh, 720px);
+                max-width: calc(100vw - 24px);
+                transform: translateX(50%);
+            }
+
+            .bear-modal-body {
+                min-height: 76px;
+                font-size: clamp(18px, 2.2vw, 22px);
+            }
+
+            .bear-modal-close-btn {
+                min-height: 48px;
+                font-size: clamp(16px, 1.8vw, 19px);
+            }
         }
 
         @media (max-width: 600px) {
@@ -776,18 +854,29 @@
                 object-position: center bottom;
             }
 
+            .bear-modal-code {
+                top: 22%;
+                left: 50%;
+                justify-items: center;
+                transform: translate(-50%, -50%);
+            }
+
+            .bear-modal-code-number {
+                font-size: clamp(150px, 43vw, 250px);
+            }
+
             .bear-modal-content {
-                width: min(440px, calc(100vw - 32px));
+                width: min(280px, calc(100vw - 40px));
             }
 
             .bear-modal-body {
-                min-height: 12vh;
-                font-size: clamp(18px, 5vw, 24px);
+                min-height: 70px;
+                font-size: clamp(17px, 5vw, 21px);
             }
 
             .bear-modal-close-btn {
-                min-height: 8vh;
-                font-size: clamp(17px, 4.8vw, 22px);
+                min-height: 46px;
+                font-size: clamp(16px, 4.8vw, 19px);
             }
         }
 
@@ -922,7 +1011,7 @@
             <h2 id="bearUniverseTitle">Вселенная медведей</h2>
             <p class="bear-universe-copy">Проверь, есть ли в тебе медведь. Всего один клик — и узнаешь.</p>
             <button id="bearBtn" class="action-btn bear-universe-btn" type="button">
-                <i class="fa-solid fa-paw" aria-hidden="true"></i> Я медведь
+                <i class="fa-solid fa-paw" aria-hidden="true"></i> Войти
             </button>
         </div>
         <img class="bear-universe-bear" src="beers.png" alt="" aria-hidden="true" draggable="false">
@@ -937,11 +1026,16 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.15</p>
+        <p class="footer-version">Версия 2.1.16</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
     <div id="bearModal" class="bear-modal" aria-hidden="true">
+        <div class="bear-modal-code" aria-hidden="true">
+            <span class="bear-modal-code-label">Медвежий портал</span>
+            <span class="bear-modal-code-number">403</span>
+            <span class="bear-modal-code-caption">Доступ закрыт</span>
+        </div>
         <img class="bear-modal-bear" src="beer.png" alt="" aria-hidden="true" draggable="false">
         <div class="bear-modal-content" role="dialog" aria-modal="true" aria-labelledby="bearModalTitle">
             <div class="bear-modal-body">
