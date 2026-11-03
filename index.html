@@ -522,8 +522,10 @@
             border: 1px solid var(--card-border);
             border-radius: 24px;
             background:
-                radial-gradient(circle at 78% 42%, rgba(181, 181, 184, 0.13), transparent 28%),
-                linear-gradient(115deg, rgba(24, 24, 27, 0.98), rgba(42, 42, 46, 0.95) 58%, rgba(24, 24, 27, 0.98));
+                radial-gradient(circle at 76% 44%, rgba(181, 181, 184, 0.09), transparent 32%),
+                var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
         }
 
@@ -924,7 +926,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.13</p>
+        <p class="footer-version">Версия 2.1.14</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
