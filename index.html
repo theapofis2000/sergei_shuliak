@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
     <title>Сергей Шуляк</title>
     <script>
@@ -21,12 +21,19 @@
         }, { once: true });
     </script>
     <style>
+        html {
+            background-color: #282828;
+            color-scheme: dark;
+        }
+
         html.page-loading {
-            background: #050505;
+            background-color: #050505;
+            background-image: none;
         }
 
         html.page-loaded {
-            background: linear-gradient(
+            background-color: #282828;
+            background-image: linear-gradient(
                 to bottom,
                 #000000 0,
                 #000000 140px,
@@ -119,10 +126,12 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: #282828;
+            background-image: var(--bg-gradient);
             background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -132,7 +141,7 @@
         /* Шапка с именем */
         header {
             width: 100%;
-            padding: 40px 20px 20px;
+            padding: calc(40px + env(safe-area-inset-top, 0px)) 20px 20px;
             text-align: center;
             z-index: 10;
         }
@@ -592,7 +601,7 @@
 
         @media (min-width: 993px) {
             .bear-universe-bear {
-                right: 5%;
+                right: -2%;
                 bottom: -12%;
                 width: 56%;
                 height: auto;
@@ -710,8 +719,8 @@
                     "copy"
                     "bear"
                     "button";
-                min-height: 390px;
-                padding: 26px 20px;
+                min-height: 370px;
+                padding: 22px 20px;
             }
 
             .bear-universe-content {
@@ -737,12 +746,14 @@
             .bear-universe-bear {
                 grid-area: bear;
                 position: relative;
+                right: auto;
+                bottom: auto;
                 justify-self: center;
                 width: 100%;
                 height: auto;
                 max-width: 340px;
-                max-height: 190px;
-                margin-top: 12px;
+                max-height: 170px;
+                margin-top: 8px;
                 object-position: center;
                 opacity: 0.9;
             }
@@ -750,7 +761,7 @@
             .bear-universe-btn {
                 grid-area: button;
                 justify-self: center;
-                margin-top: 4px;
+                margin-top: 0;
             }
 
             .bear-modal-bear {
@@ -926,7 +937,7 @@
 
     <footer>
         <p>© 2026 Сергей Шуляк. Все права защищены.</p>
-        <p class="footer-version">Версия 2.1.14</p>
+        <p class="footer-version">Версия 2.1.15</p>
     </footer>
 
     <!-- Модальное окно с медведем -->
