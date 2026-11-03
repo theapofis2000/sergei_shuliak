@@ -631,14 +631,15 @@
         .bear-modal-bear {
             position: absolute;
             z-index: 2;
-            right: 0;
+            right: 50%;
             bottom: 0;
-            width: min(68vw, 1100px);
+            width: min(72vw, 1120px);
             height: auto;
-            max-height: 88dvh;
+            max-height: 84dvh;
             object-fit: contain;
-            object-position: right bottom;
+            object-position: center bottom;
             filter: brightness(0.62) saturate(0.82) drop-shadow(0 18px 38px rgba(0, 0, 0, 0.34));
+            transform: translateX(50%);
             pointer-events: none;
             user-select: none;
         }
@@ -646,15 +647,16 @@
         .bear-modal-code {
             position: absolute;
             z-index: 1;
-            top: 34%;
-            left: clamp(24px, 7vw, 120px);
+            top: 31%;
+            left: 50%;
             display: grid;
-            justify-items: start;
+            justify-items: center;
             gap: 10px;
-            transform: translateY(-50%);
+            transform: translateX(-50%);
             color: rgba(232, 232, 236, 0.72);
             pointer-events: none;
             user-select: none;
+            text-align: center;
         }
 
         .bear-modal-code-label,
@@ -674,7 +676,7 @@
 
         .bear-modal-code-number {
             color: rgba(232, 232, 236, 0.17);
-            font-size: clamp(120px, 16vw, 260px);
+            font-size: clamp(160px, 18vw, 300px);
             font-weight: 800;
             letter-spacing: -0.1em;
             line-height: 0.78;
@@ -693,16 +695,16 @@
             transition-delay: 0s;
         }
 
-        /* Размер и пропорции карточки масштабируются вместе с окном браузера */
+        /* Карточка сохраняет читаемый размер на компьютере, планшете и телефоне */
         .bear-modal-content {
             position: relative;
             z-index: 3;
-            width: min(260px, max(210px, 14vw), calc(100vw - 32px));
+            width: min(340px, calc(100vw - 40px));
             overflow: hidden;
             text-align: center;
             background: rgba(24, 24, 27, 0.97);
             border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: clamp(16px, 1.1vw, 24px);
+            border-radius: 20px;
             box-shadow: 0 14px 38px rgba(0, 0, 0, 0.54);
             transform: scale(0.985);
             transition: transform 0.22s ease;
@@ -713,13 +715,13 @@
         }
 
         .bear-modal-body {
-            min-height: clamp(58px, 6vh, 82px);
+            min-height: 78px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 12px 16px;
             color: #ededf0;
-            font-size: clamp(16px, 1vw, 20px);
+            font-size: clamp(18px, 1.2vw, 21px);
             font-weight: 400;
             line-height: 1.4;
         }
@@ -735,12 +737,12 @@
         .bear-modal-close-btn {
             display: block;
             width: 100%;
-            min-height: clamp(38px, 3.5vh, 48px);
+            min-height: 46px;
             padding: 6px 12px;
             background: transparent;
             border: 0;
             color: #bdbdc1;
-            font-size: clamp(15px, 1vw, 18px);
+            font-size: 17px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.18s ease, color 0.18s ease;
@@ -756,36 +758,32 @@
             outline-offset: -4px;
         }
 
-        @media (min-width: 601px) and (max-width: 1400px) {
+        @media (min-width: 601px) and (max-width: 1400px) and (hover: none) and (pointer: coarse) {
             .bear-modal-code {
-                top: 27%;
-                left: 50%;
-                justify-items: center;
-                transform: translateX(-50%);
+                top: 29%;
             }
 
             .bear-modal-code-number {
-                font-size: clamp(128px, 22vw, 220px);
+                font-size: clamp(180px, 26vw, 300px);
             }
 
             .bear-modal-bear {
-                right: 50%;
-                bottom: 0;
-                width: min(105vw, 1050px);
-                height: auto;
+                width: min(100vw, 1050px);
                 max-height: 78dvh;
-                max-width: none;
-                transform: translateX(50%);
+            }
+
+            .bear-modal-content {
+                width: min(360px, calc(100vw - 48px));
             }
 
             .bear-modal-body {
-                min-height: 62px;
-                font-size: clamp(16px, 1.7vw, 18px);
+                min-height: 82px;
+                font-size: 20px;
             }
 
             .bear-modal-close-btn {
-                min-height: 42px;
-                font-size: clamp(15px, 1.5vw, 17px);
+                min-height: 50px;
+                font-size: 18px;
             }
         }
 
@@ -868,17 +866,17 @@
             }
 
             .bear-modal-content {
-                width: min(220px, calc(100vw - 32px));
+                width: min(300px, calc(100vw - 40px));
             }
 
             .bear-modal-body {
-                min-height: 58px;
-                font-size: 16px;
+                min-height: 68px;
+                font-size: 17px;
             }
 
             .bear-modal-close-btn {
-                min-height: 40px;
-                font-size: 15px;
+                min-height: 44px;
+                font-size: 16px;
             }
         }
 
