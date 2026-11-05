@@ -599,7 +599,7 @@
             color: #dedee2;
         }
 
-        @media (min-width: 993px) {
+        @media (min-width: 993px) and (hover: hover) {
             .bear-universe-bear {
                 right: -2%;
                 bottom: -12%;
@@ -628,34 +628,36 @@
             transition: opacity 0.22s ease, visibility 0s linear 0.22s;
         }
 
+        /* Медведь смещен в правый нижний угол */
         .bear-modal-bear {
             position: absolute;
             z-index: 2;
-            right: 50%;
+            right: 0;
             bottom: 0;
             width: min(72vw, 1120px);
             height: auto;
             max-height: 84dvh;
             object-fit: contain;
-            object-position: center bottom;
+            object-position: right bottom;
             filter: brightness(0.62) saturate(0.82) drop-shadow(0 18px 38px rgba(0, 0, 0, 0.34));
-            transform: translateX(50%);
             pointer-events: none;
             user-select: none;
         }
 
+        /* Базовые стили надписи 403 (по умолчанию для планшетов и мобильных) */
         .bear-modal-code {
             position: absolute;
             z-index: 1;
-            top: 31%;
+            top: 10%;
             left: 50%;
-            display: grid;
-            justify-items: center;
-            gap: 10px;
+            right: auto;
             transform: translateX(-50%);
+            display: grid;
+            gap: 6px;
             color: rgba(232, 232, 236, 0.72);
             pointer-events: none;
             user-select: none;
+            justify-items: center;
             text-align: center;
         }
 
@@ -676,16 +678,32 @@
 
         .bear-modal-code-number {
             color: rgba(232, 232, 236, 0.17);
-            font-size: clamp(160px, 18vw, 300px);
             font-weight: 800;
             letter-spacing: -0.1em;
             line-height: 0.78;
             -webkit-text-stroke: 1px rgba(232, 232, 236, 0.15);
             text-shadow: 0 0 42px rgba(232, 232, 236, 0.08);
+            font-size: clamp(100px, 22vw, 170px);
         }
 
         .bear-modal-code-caption {
             margin-top: 2px;
+        }
+
+        /* Компьютерная версия (ПК с мышкой): 403 в верхнем левом углу */
+        @media (min-width: 993px) and (hover: hover) {
+            .bear-modal-code {
+                top: clamp(24px, 4vh, 48px);
+                left: clamp(20px, 4vw, 60px);
+                right: auto;
+                transform: none;
+                justify-items: start;
+                text-align: left;
+            }
+
+            .bear-modal-code-number {
+                font-size: clamp(200px, 22vw, 340px);
+            }
         }
 
         .bear-modal.active {
@@ -695,7 +713,7 @@
             transition-delay: 0s;
         }
 
-        /* Карточка сохраняет читаемый размер на компьютере, планшете и телефоне */
+        /* Карточка модального окна (по умолчанию для планшетов и мобильных) */
         .bear-modal-content {
             position: relative;
             z-index: 3;
@@ -758,18 +776,136 @@
             outline-offset: -4px;
         }
 
-        @media (min-width: 601px) and (max-width: 1400px) and (hover: none) and (pointer: coarse) {
-            .bear-modal-code {
-                top: 29%;
+        /* Компьютерная версия (ПК с мышкой): поднятое горизонтальное облачко-капсула темно-серого цвета */
+        @media (min-width: 993px) and (hover: hover) {
+            .bear-modal {
+                display: block;
             }
 
-            .bear-modal-code-number {
-                font-size: clamp(180px, 26vw, 300px);
+            .bear-modal-content {
+                position: absolute;
+                right: 22%;
+                top: 18%; /* Подняли выше над головой медведя */
+                width: 250px;
+                height: 58px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 9999px;
+                overflow: visible;
+                background: rgba(38, 38, 44, 0.96); /* Темно-серый фон облачка */
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
             }
 
+            /* Пузырьки мыслей медведя, идущие вниз к его голове */
+            .bear-modal-content::before,
+            .bear-modal-content::after {
+                content: '';
+                position: absolute;
+                background: rgba(38, 38, 44, 0.96);
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                border-radius: 50%;
+                z-index: 2;
+            }
+
+            .bear-modal-content::before {
+                bottom: -18px;
+                right: 70px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .bear-modal-content::after {
+                bottom: -36px;
+                right: 56px;
+                width: 8px;
+                height: 8px;
+            }
+
+            .bear-modal-body {
+                min-height: auto;
+                padding: 0 16px;
+                font-size: 13.5px;
+                white-space: nowrap;
+            }
+
+            .bear-modal-footer {
+                display: none;
+            }
+
+            .bear-modal-close-icon {
+                position: absolute;
+                top: -6px;
+                right: -6px;
+                z-index: 10;
+                display: grid;
+                place-items: center;
+                width: 25px;
+                height: 25px;
+                background: rgba(45, 45, 52, 0.96);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                border-radius: 50%;
+                color: #c0c0c5;
+                font-size: 10.5px;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+            }
+
+            .bear-modal-close-icon:hover {
+                background: rgba(60, 60, 68, 0.98);
+                color: #fff;
+                border-color: rgba(255, 255, 255, 0.32);
+                transform: scale(1.05);
+            }
+
+            .bear-modal-close-icon::after {
+                content: 'Закрыть';
+                position: absolute;
+                top: -28px;
+                right: 50%;
+                transform: translateX(50%) translateY(4px) scale(0.95);
+                padding: 3px 8px;
+                background: rgba(20, 20, 23, 0.96);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 6px;
+                color: #e2e2e7;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 10px;
+                font-weight: 500;
+                white-space: nowrap;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+                z-index: 20;
+            }
+
+            .bear-modal-close-icon:hover::after {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(50%) translateY(0) scale(1);
+            }
+        }
+
+        /* На планшетах и телефонах скрываем десктопный крестик, оставляем стандартную кнопку */
+        @media not all and (min-width: 993px) and (hover: hover) {
+            .bear-modal-close-icon {
+                display: none;
+            }
+        }
+
+        /* Адаптивность для планшетов */
+        @media (min-width: 601px) and (max-width: 1376px) {
             .bear-modal-bear {
-                width: min(100vw, 1050px);
-                max-height: 78dvh;
+                right: 0;
+                bottom: 0;
+                width: min(80vw, 900px);
+                max-height: 75vh;
+                max-height: 75dvh;
+                object-position: right bottom;
             }
 
             .bear-modal-content {
@@ -787,6 +923,7 @@
             }
         }
 
+        /* Адаптивность для телефонов */
         @media (max-width: 600px) {
             .bear-universe {
                 display: grid;
@@ -843,26 +980,15 @@
             }
 
             .bear-modal-bear {
-                right: 50%;
+                right: 0;
                 bottom: 0;
                 width: auto;
                 height: auto;
-                max-width: calc(100vw - 24px);
-                max-height: 100vh;
-                max-height: 100dvh;
-                transform: translateX(50%);
-                object-position: center bottom;
-            }
-
-            .bear-modal-code {
-                top: 22%;
-                left: 50%;
-                justify-items: center;
-                transform: translate(-50%, -50%);
-            }
-
-            .bear-modal-code-number {
-                font-size: clamp(120px, 36vw, 190px);
+                max-width: min(100vw, 420px);
+                max-height: 70vh;
+                max-height: 70dvh;
+                object-position: right bottom;
+                opacity: 0.8;
             }
 
             .bear-modal-content {
@@ -890,7 +1016,7 @@
             }
         }
 
-        /* Адаптивность для мобильных */
+        /* Адаптивность лейаута для мобильных */
         @media (max-width: 992px) {
             .container {
                 flex-direction: column-reverse;
@@ -1038,6 +1164,9 @@
         </div>
         <img class="bear-modal-bear" src="beer.png" alt="" aria-hidden="true" draggable="false">
         <div class="bear-modal-content" role="dialog" aria-modal="true" aria-labelledby="bearModalTitle">
+            <button id="closeBearModalIcon" class="bear-modal-close-icon" type="button" aria-label="Закрыть">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
             <div class="bear-modal-body">
                 <p id="bearModalTitle">Ты не медведь</p>
             </div>
@@ -1085,11 +1214,12 @@
             const bearBtn = document.getElementById('bearBtn');
             const bearModal = document.getElementById('bearModal');
             const closeBearModal = document.getElementById('closeBearModal');
+            const closeBearModalIcon = document.getElementById('closeBearModalIcon');
             const feedbackBtn = document.getElementById('feedbackBtn');
             const feedbackModal = document.getElementById('feedbackModal');
             const closeFeedbackModal = document.getElementById('closeFeedbackModal');
 
-            if (!bearBtn || !bearModal || !closeBearModal) return;
+            if (!bearBtn || !bearModal) return;
 
             let previousBodyOverflow = '';
 
@@ -1098,7 +1228,12 @@
                 document.body.style.overflow = 'hidden';
                 bearModal.classList.add('active');
                 bearModal.setAttribute('aria-hidden', 'false');
-                closeBearModal.focus();
+                const isDesktop = window.matchMedia('(min-width: 993px) and (hover: hover)').matches;
+                if (isDesktop && closeBearModalIcon) {
+                    closeBearModalIcon.focus();
+                } else if (closeBearModal) {
+                    closeBearModal.focus();
+                }
             };
 
             const closeModal = () => {
@@ -1128,7 +1263,8 @@
             };
 
             bearBtn.addEventListener('click', openModal);
-            closeBearModal.addEventListener('click', closeModal);
+            if (closeBearModal) closeBearModal.addEventListener('click', closeModal);
+            if (closeBearModalIcon) closeBearModalIcon.addEventListener('click', closeModal);
             feedbackBtn.addEventListener('click', openFeedbackModal);
             closeFeedbackModal.addEventListener('click', closeFeedback);
 
